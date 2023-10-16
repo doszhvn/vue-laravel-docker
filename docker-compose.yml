@@ -1,0 +1,19 @@
+version: '3'
+services:
+  vue-app:
+    image: node:16.16.0
+    command: >  # Коман
+      sh -c "
+        npm install &&  # Устанавливаем зависимости
+        npm install -g @vue/cli
+        chmod +x node_modules/.bin/vue-cli-service
+        npm run serve  # Запускаем сервер Vue
+      "
+#    build:
+#      context: .  # Путь к директории с Dockerfile
+#      dockerfile: Dockerfile  # Имя Dockerfile
+    ports:
+      - "8080:8080"  # Проксируем порт контейнера на порт хоста
+    volumes:
+      - .:/app  # Связываем текущую директорию с директорией /app внутри контейнера
+    container_name: vue_app
